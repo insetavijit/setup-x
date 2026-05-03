@@ -1,0 +1,14 @@
+services:
+  firefox:
+    image: lscr.io/linuxserver/firefox:latest
+    container_name: firefox
+    restart: unless-stopped
+    security_opt:
+      - seccomp:unconfined      # shares EC2 host network — fixes internet access
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Kolkata
+    volumes:
+      - ./config:/config        # stores bookmarks, history, settings
+    shm_size: "1gb"             # shared memory — prevents Firefox crashes
